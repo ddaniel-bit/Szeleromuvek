@@ -39,6 +39,15 @@ namespace Szeleromuvek
             }
             sr.Close();
             dgEromuvek.ItemsSource = szeleromuvek;
+
+            File.Create("jelentes.txt").Close();
+            using (StreamWriter sw = new StreamWriter("jelentes.txt"))
+            {
+                foreach (var eromu in szeleromuvek)
+                {
+                    sw.WriteLine($"{eromu.Helyszín};{eromu.Mennyiség};{eromu.Teljesítmény};{eromu.Év};{eromu.Kategoria()}");
+                }
+            }
         }
 
         private void btnSzama_Click(object sender, RoutedEventArgs e)

@@ -24,19 +24,19 @@ namespace Szeleromuvek
         public int Mennyiség { get => mennyiseg; }
         public int Teljesítmény { get => teljesitmeny; }
         public String Év { get => ev; }
-        public char Kategoria()
+        public string Kategoria()
         {
             if (teljesitmeny>999)
             {
-                return 'A';
+                return "A";
             }
             else if (teljesitmeny > 500 && teljesitmeny < 1000)
             {
-                return 'B';
+                return "B";
             }
             else
             {
-                return 'C';
+                return "C";
             }
             
         }
