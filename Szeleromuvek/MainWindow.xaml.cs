@@ -65,17 +65,32 @@ namespace Szeleromuvek
         private void btnEromu2010_Click(object sender, RoutedEventArgs e)
         {
             ObservableCollection<Szeleromu> szeleromuvek2 = new ObservableCollection<Szeleromu>();
+            double osszesen = 0;
             foreach (var eromu in szeleromuvek)
             {
-                if (eromu.Helyszín == txtHelyszin.Text)
+                string[] ev = eromu.Év.Split(".");
+                if (int.Parse(ev[0]) == 2010)
                 {
                     szeleromuvek2.Add(eromu);
+                    osszesen += eromu.Teljesítmény;
                 }
             }
-            foreach (var eromu2 in szeleromuvek2)
+            MessageBox.Show($"2010-ben telepített erőművek átlagos teljesítménye: {Math.Round(osszesen/szeleromuvek2.Count(), 2)} W");
+        }
+
+        private void btnLegnagyobb_Click(object sender, RoutedEventArgs e)
+        {
+            int legnagyobb = 0;
+            int legnagyobbIndex = 0;
+            for (int eromuIndex = 0; eromuIndex < szeleromuvek.Count(); eromuIndex++)
             {
-                lbEromuvek.Items.Add($"{eromu2.Teljesítmény},{eromu2.Mennyiség}");
+                if (szeleromuvek[eromuIndex].Teljesítmény > legnagyobb)
+                {
+                    legnagyobb = szeleromuvek[eromuIndex].Teljesítmény;
+                    legnagyobbIndex = eromuIndex;
+                }
             }
+            MessageBox.Show($"A legnagyobb teljesítményű erőmű helyszíne: {szeleromuvek[legnagyobbIndex].Helyszín}, teljesítménye: {szeleromuvek[legnagyobbIndex].Teljesítmény} W, telepítés éve: {szeleromuvek[legnagyobbIndex].Év}");
         }
     }
 }
